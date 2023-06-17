@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,30 +28,38 @@ import { Routes, RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
-import { authGuard } from './shared/auth.guard';
-import { LoginComponent } from './login/login.component';  
+import { AuthGuard } from './shared/auth.guard';
+import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './shared/jwt.interceptor';
+import { ErrorInterceptor } from './shared/error.interceptor';
+import { Role } from './shared/user.model';
 
 const routes: Routes = [
   {
     path: '',
-    component: AssignmentsComponent
+    component: AssignmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
-    component: AssignmentsComponent
+    component: AssignmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'add',
-    component: AddAssignmentComponent
+    component: AddAssignmentComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignments/:id',
-    component: AssignmentDetailComponent
+    component: AssignmentDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignments/:id/edit',
     component: EditAssignmentComponent,
-    canActivate: [authGuard]
+    canActivate: [AuthGuard],
+    data:{roles: [Role.Admin] }
   },
   {
     path: 'login',
@@ -79,7 +87,10 @@ const routes: Routes = [
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
     MatTableModule, MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

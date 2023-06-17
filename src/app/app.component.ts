@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './shared/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { AssignmentsService } from './shared/assignments.service';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -14,39 +15,30 @@ export class AppComponent {
   nom:string = "";
   currentRoute:string = "";
 
-  constructor(private authService:AuthService, 
+  constructor(private authService:AuthService,
               private router:Router,
               private assigmmentsService:AssignmentsService) {
     console.log(router.url);
-
+    //this.creerDonneesDeTest();
     router.events.subscribe(event => {
       if(event instanceof NavigationEnd) {
         console.log(event.url);
         this.currentRoute = event.url;
       }
     });
-    
-    
+
+
   }
 
-  login() {
-    // utilise l'authService pour se connecter
-    if(!this.authService.loggedIn) {
-      this.authService.logIn();
-      // on change le label du bouton
-      this.labelConnexion = "Se déconnecter";
-    } else {
-      this.authService.logOut();
-      // et on navigue vers la page d'accueil
-      this.router.navigate(["/home"]);
-    }
+  login(){
+    this.router.navigate(["/"]);
   }
 
   isLogged() {
-    if(this.authService.loggedIn) {
-      this.nom = "Michel Buffa";
+    if(this.authService.isAuthenticated()) {
+      this.nom = "Test";
     }
-    return this.authService.loggedIn;
+    return this.authService.isAuthenticated();
   }
 
   creerDonneesDeTest() {

@@ -1,0 +1,13 @@
+.mat-primary{
+  background-color: #9AC5F4;
+  color: white;
+}
+
+.mat-accent{
+  background-color:#A7ECEE;
+  color: white;
+}
+.mat-warn{
+  background-color: #FFEEBB;
+  color: white;
+}

@@ -1,0 +1,36 @@
+.login-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background-color: #B5B7FF;
+}
+mat-card {
+  width: 600px;
+  margin: 2em 30px;
+  text-align: center;
+}
+
+.header {
+  text-align: center;
+}
+
+.full-width {
+  width: 80%;
+}
+
+.email-input {
+  padding-top: 10px;
+}
+
+.pw-input {
+  padding-top: 10px;
+}
+
+
+.login-button {
+  height: 50px;
+  font-size: 20px;
+}

@@ -1,7 +1,7 @@
 
 export enum Role{
-  Normal='normal',
-  Admin='admin'
+  Normal='Normal',
+  Admin='Admin'
 }
 
 export interface UserInfo{

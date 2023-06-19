@@ -4,6 +4,7 @@ import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { fileUrl } from 'src/app/shared/utils';
+import { Role } from 'src/app/shared/user.model';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -13,6 +14,9 @@ import { fileUrl } from 'src/app/shared/utils';
 export class AssignmentDetailComponent implements OnInit {
   assignmentTransmis?: Assignment;
   fileUrl = fileUrl;
+
+  // mode notation
+  notingMode = false;
 
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
@@ -69,18 +73,19 @@ export class AssignmentDetailComponent implements OnInit {
     // path = "/assignment/" + this.assignmentTransmis?.id + "/edit";
     // this.router.navigate([path]);
     // c'est pour vous montrer la syntaxe avec [...]
-    this.router.navigate(["/assignments", this.assignmentTransmis?._id, "edit"],
-    {
-      queryParams: {
-        nom: this.assignmentTransmis?.nom,
-        matiere: "Angular"
-      },
-      fragment: "edition"
-    });
+    this.router.navigate(["/assignments", this.assignmentTransmis?._id, "edit"]);
+  }
+
+  onAssignmentHand(){
+    this.notingMode = true;
   }
 
   isLogged() {
     // renvoie si on est loggé ou pas
     return this.authService.isAuthenticated();
+  }
+
+  isAdmin(){
+   return this.authService.isAuthorized([Role.Admin])
   }
 }

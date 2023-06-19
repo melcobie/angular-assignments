@@ -50,10 +50,33 @@
           <span matListItemTitle>{{assignmentTransmis.note}}/20</span>
           <span matListItemLine>{{assignmentTransmis.remarque}}</span>
         </mat-list-item>
+        
       </mat-list>
+        <div class="example-container">
+          <mat-form-field hintLabel="Entre 0 et 20" class="example-full-width">
+            <mat-label>Entrer une note</mat-label>
+            <input matInput #input placeholder="10" type="number" min="0" max="20">
+          </mat-form-field>
+        
+          <mat-form-field class="example-full-width">
+            <mat-label>Remarques</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+
+          <button mat-stroked-button color="primary">
+            Rendre le devoir
+          </button>
+        </div>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-stroked-button color="primary" (click)="onEditAssignment()">MODIFIER</button>
+    <mat-card-actions *ngIf="isAdmin()" class="actions">
+      <div class="edit">
+        <button mat-stroked-button color="basic"
+          *ngIf="!assignmentTransmis.rendu"
+          (click)="onAssignmentHand()"
+        >RENDRE LE DEVOIR</button>
+        <button mat-stroked-button color="primary" (click)="onEditAssignment()">MODIFIER</button>
+      </div>  
+      <button mat-stroked-button color="warn" (click)="onEditAssignment()">SUPPRIMER</button>
     </mat-card-actions>
   </mat-card>
 </div>

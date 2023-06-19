@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Assignment } from '../../assignment.model';
+import { fileUrl } from 'src/app/shared/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assignment-card',
@@ -10,6 +12,10 @@ export class AssignmentCardComponent implements OnChanges{
   	@Input() assignment: Assignment|undefined;
     chipStyle:any = {};
 
+    fileUrl = fileUrl;
+
+    constructor(private route: Router){}
+
     ngOnChanges(changes: SimpleChanges) {
       if (changes['assignment']) {
         let currentValue = changes['assignment'].currentValue;
@@ -19,6 +25,10 @@ export class AssignmentCardComponent implements OnChanges{
           borderColor: currentValue.matiere.couleur
         };
       }
+    }
+
+    goToDetails(){
+      this.route.navigate(["/assignments", this.assignment?._id]);
     }
 
 }

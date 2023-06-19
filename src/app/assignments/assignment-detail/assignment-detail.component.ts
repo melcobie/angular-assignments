@@ -3,6 +3,7 @@ import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
+import { fileUrl } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -11,6 +12,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 })
 export class AssignmentDetailComponent implements OnInit {
   assignmentTransmis?: Assignment;
+  fileUrl = fileUrl;
 
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
@@ -21,7 +23,7 @@ export class AssignmentDetailComponent implements OnInit {
     // appelée avant le rendu du composant
     // on va chercher l'id dans l'url active
     // en mettant + on force la conversion en number
-    const id = +this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
     console.log("Dans le ngOnInit de detail, id = " + id);
 
     // on va chercher l'assignment à afficher
@@ -67,7 +69,7 @@ export class AssignmentDetailComponent implements OnInit {
     // path = "/assignment/" + this.assignmentTransmis?.id + "/edit";
     // this.router.navigate([path]);
     // c'est pour vous montrer la syntaxe avec [...]
-    this.router.navigate(["/assignments", this.assignmentTransmis?.id, "edit"],
+    this.router.navigate(["/assignments", this.assignmentTransmis?._id, "edit"],
     {
       queryParams: {
         nom: this.assignmentTransmis?.nom,

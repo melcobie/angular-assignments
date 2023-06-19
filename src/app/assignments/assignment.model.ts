@@ -1,3 +1,4 @@
+import { UserInfo } from "../shared/user.model";
 import { Matiere } from "./matiere.model";
 
 export class Assignment {
@@ -7,7 +8,7 @@ export class Assignment {
     dateDeRendu!: Date;
     rendu!: boolean;
     matiere!: Matiere;
-    eleve!: string;
+    eleve!: UserInfo;
     note!: number;
     remarque!: string;
 }

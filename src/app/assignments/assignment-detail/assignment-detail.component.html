@@ -1,4 +1,4 @@
-<mat-card *ngIf="assignmentTransmis">
+<!-- <mat-card *ngIf="assignmentTransmis">
   <mat-card-content>
     <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
     <mat-card-subtitle>Date de rendu : {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yy'}}</mat-card-subtitle>
@@ -17,4 +17,43 @@
 
   <button mat-raised-button color="accent" (click)="onDeleteAssignment()">DELETE</button>
   </mat-card-actions>
-</mat-card>
+</mat-card> -->
+
+<div class="container">
+  <mat-card class="example-card" *ngIf="assignmentTransmis">
+    <img mat-card-image [src]="fileUrl(assignmentTransmis.matiere.photo)" alt="Photo de la matière" height="100px" width="100px">
+    <mat-card-content>
+      <h3>{{assignmentTransmis.nom}}</h3>
+      <mat-list>
+        <mat-list-item>
+          <span matListItemTitle>Date de rendu : {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yy'}}</span>
+        </mat-list-item>
+      </mat-list>
+      <h3>Matière</h3>
+      <mat-list>
+        <mat-list-item>
+          <span matListItemTitle>{{assignmentTransmis.matiere.nom}}</span>
+          <span matListItemLine>Professeur : {{assignmentTransmis.matiere.prof}}</span>
+        </mat-list-item>
+      </mat-list>
+      <h3>Élève</h3>
+      <mat-list>
+        <mat-list-item>
+          <span matListItemTitle>{{assignmentTransmis.eleve.name}}</span>
+          <span matListItemLine>{{assignmentTransmis.eleve.email}}</span>
+        </mat-list-item>
+      </mat-list>
+      <h3>Note</h3>
+      <mat-list>
+        <mat-list-item>Rendu : {{assignmentTransmis.rendu? "Oui" : "Non"}}</mat-list-item>
+        <mat-list-item *ngIf="assignmentTransmis.rendu">
+          <span matListItemTitle>{{assignmentTransmis.note}}/20</span>
+          <span matListItemLine>{{assignmentTransmis.remarque}}</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" (click)="onEditAssignment()">MODIFIER</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

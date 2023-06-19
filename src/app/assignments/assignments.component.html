@@ -2,10 +2,8 @@
 
 <main class="container">
    <h1>Liste des devoirs</h1>
-   <a (click)="addAssignment()">
-        <button mat-flat-button color="accent"> Ajouter Assignment
-        </button>
-    </a>
+    <button mat-flat-button color="accent" (click)="addAssignment()" class="ajouterBtn"> Ajouter Assignment
+    </button>
    <mat-tab-group>
     <mat-tab label="Devoir rendu">
       <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scrollerRendu>

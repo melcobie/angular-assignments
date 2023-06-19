@@ -1,18 +1,59 @@
-<div class="container" *ngIf="assignment">
+<!-- <div class="container" *ngIf="assignment">
     <h1>Edition de l'assignment {{assignment.nom}}</h1>
     <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
       <mat-form-field>
-        <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
+        <mat-label></mat-label>
+        <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name" required>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date">
+        <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date" required>
         <mat-datepicker-toggle matSuffix [for]="picker">
         </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
-        Sauver
+        Modifier
       </button>
     </form>
-   </div>
+   </div> -->
       
+<div class="container">
+    <mat-card class="example-card" *ngIf="assignment">
+      <div mat-card-title>Modification de l'assignment {{assignment.nom}} de l'élève {{assignment.eleve.name}} </div>
+      <mat-card-content>
+        <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
+          <mat-form-field>
+            <mat-label>Nom du devoir</mat-label>
+            <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date" required>
+            <mat-datepicker-toggle matSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Matiere</mat-label>
+            <mat-select [(value)]="matiere" name="matiere">
+              <mat-option *ngFor="let matiere of matieres" [value]="matiere">{{matiere.nom}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Entre 0 et 20" class="example-full-width" *ngIf="assignment.rendu">
+            <mat-label>Entrer une note</mat-label>
+            <input matInput placeholder="10" type="number" min="0" max="20" [(ngModel)]="note" name="note">
+            <mat-error *ngIf="inputError.note">{{inputError.note}}</mat-error>
+          </mat-form-field>
+        
+          <mat-form-field class="example-full-width" *ngIf="assignment.rendu">
+            <mat-label>Remarques</mat-label>
+            <textarea matInput [(ngModel)]="remarque" name="remarque"></textarea>
+          </mat-form-field>
+
+          <button mat-stroked-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
+            Sauver
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+</div>

@@ -39,6 +39,7 @@ import { ErrorInterceptor } from './shared/error.interceptor';
 import { Role } from './shared/user.model';
 import { AssignmentCardComponent } from './assignments/components/assignment-card/assignment-card.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -90,7 +91,7 @@ const routes: Routes = [
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
     MatTableModule, MatPaginatorModule, MatToolbarModule, MatMenuModule,MatChipsModule,MatTabsModule,
     MatDialogModule,
-    MatStepperModule, MatRadioModule,
+    MatStepperModule, MatRadioModule, MatSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

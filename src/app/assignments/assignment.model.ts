@@ -10,6 +10,6 @@ export class Assignment {
     matiere!: Matiere;
     eleve!: UserInfo;
     note!: number;
-    remarque!: string;
+    remarques!: string;
 }
 

@@ -62,15 +62,22 @@ export class AssignmentDetailComponent implements OnInit {
     if (!this.assignmentTransmis) return;
 
     if(!this.note) {
-      this.inputError.note = "Insérez une note."
+      this.inputError.note = "Insérez une note.";
+      return;
     }else if(this.note <0 || this.note > 20){
-
+      this.inputError.note = "La note doit être entre 0 et 20";
+      return;
     }
+
     this.assignmentTransmis.rendu = true;
+    this.assignmentTransmis.note = this.note;
+    this.assignmentTransmis.remarques = this.remarque;
 
     // on appelle le service pour faire l'update
     this.assignmentsService.updateAssignment(this.assignmentTransmis)
       .subscribe(message => {
+        this.notingMode=false;
+        this.inputError = {};
         console.log(message);
       });
   }

@@ -210,7 +210,7 @@ export class AssignmentsComponent implements OnInit {
       this.assignmentsService.addAssignment(newAssignment)
         .subscribe(data => {
           console.log(data);
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/assignments", data._id]);
         });
     })
   }

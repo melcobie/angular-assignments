@@ -4,6 +4,7 @@ import { Observable, catchError, forkJoin, map, of, tap } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
 import { bdInitialAssignments } from './data';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ assignments:Assignment[] = []
   constructor(private loggingService:LoggingService,
     private http:HttpClient) { }
 
-    uri_api = 'http://localhost:8010/api/assignments';
+    uri_api = environment.apiUrl + "/assignments";
     //uri_api = 'https://mbds-madagascar-2022-2023-back-end.onrender.com/api/assignments';
 
   getAssignments(page:number, limit:number,status:string):Observable<any> {

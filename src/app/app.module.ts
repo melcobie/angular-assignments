@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import {MatChipsModule} from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -17,7 +17,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { FormsModule } from '@angular/forms';
@@ -26,13 +27,14 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { AuthGuard } from './shared/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './shared/jwt.interceptor';
 import { ErrorInterceptor } from './shared/error.interceptor';
 import { Role } from './shared/user.model';
+import { AssignmentCardComponent } from './assignments/components/assignment-card/assignment-card.component';
 
 const routes: Routes = [
   {
@@ -74,7 +76,9 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssignmentComponent,
-    LoginComponent
+    LoginComponent,
+    AssignmentCardComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,7 @@ const routes: Routes = [
     MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
-    MatTableModule, MatPaginatorModule
+    MatTableModule, MatPaginatorModule, MatToolbarModule, MatMenuModule,MatChipsModule,MatTabsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

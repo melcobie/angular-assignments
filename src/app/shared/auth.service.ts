@@ -10,9 +10,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   private user: User | undefined;
     constructor(private http: HttpClient) {
-
       let registered = localStorage.getItem("user");
-      this.logout();
       if(registered){
         this.user = JSON.parse(registered);
       }

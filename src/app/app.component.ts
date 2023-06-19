@@ -41,6 +41,10 @@ export class AppComponent {
     return this.authService.isAuthenticated();
   }
 
+  logout(){
+    this.authService.logout();
+    this.router.navigate(["/login"]);
+  }
   creerDonneesDeTest() {
     this.assigmmentsService.peuplerBDavecForkJoin()
     .subscribe(() => {

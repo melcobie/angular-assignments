@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {MatChipsModule} from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,7 +20,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { FormsModule } from '@angular/forms';
@@ -29,33 +30,41 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
-import { authGuard } from './shared/auth.guard';
+import { AuthGuard } from './shared/auth.guard';
 import { LoginComponent } from './login/login.component';
-import { AddAssignmentModalComponent } from './assignments/add-assignment-modal/add-assignment-modal.component';  
+import { JwtInterceptor } from './shared/jwt.interceptor';
+import { ErrorInterceptor } from './shared/error.interceptor';
+import { Role } from './shared/user.model';
+import { AssignmentCardComponent } from './assignments/components/assignment-card/assignment-card.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AssignmentsComponent
+    component: AssignmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
-    component: AssignmentsComponent
+    component: AssignmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'add',
-    component: AddAssignmentComponent
+    component: AddAssignmentComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignments/:id',
-    component: AssignmentDetailComponent
+    component: AssignmentDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignments/:id/edit',
     component: EditAssignmentComponent,
-    canActivate: [authGuard]
+    canActivate: [AuthGuard],
+    data:{roles: [Role.Admin] }
   },
   {
     path: 'login',
@@ -70,8 +79,7 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssignmentComponent,
-    LoginComponent,
-    AddAssignmentModalComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -83,11 +91,14 @@ const routes: Routes = [
     MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
-    MatTableModule, MatPaginatorModule,
+    MatTableModule, MatPaginatorModule, MatToolbarModule, MatMenuModule,MatChipsModule,MatTabsModule
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     MatDialogModule,
     MatStepperModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

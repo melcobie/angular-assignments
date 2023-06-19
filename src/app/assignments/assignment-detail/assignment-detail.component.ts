@@ -79,6 +79,6 @@ export class AssignmentDetailComponent implements OnInit {
 
   isLogged() {
     // renvoie si on est loggé ou pas
-    return this.authService.loggedIn;
+    return this.authService.isAuthenticated();
   }
 }

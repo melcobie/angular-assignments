@@ -1,0 +1,11 @@
+.container{
+  margin: 0;
+  padding: 0;
+}
+.toolbar-row{
+  display: flex;
+  justify-content: space-between;
+}
+.menu-icon{
+  font-size: 25px;
+}

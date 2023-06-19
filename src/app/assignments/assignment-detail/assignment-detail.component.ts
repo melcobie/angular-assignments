@@ -17,6 +17,9 @@ export class AssignmentDetailComponent implements OnInit {
 
   // mode notation
   notingMode = false;
+  note :number|undefined;
+  remarque = "";
+  inputError: any = {};
 
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
@@ -58,6 +61,11 @@ export class AssignmentDetailComponent implements OnInit {
   onAssignmentRendu() {
     if (!this.assignmentTransmis) return;
 
+    if(!this.note) {
+      this.inputError.note = "Insérez une note."
+    }else if(this.note <0 || this.note > 20){
+
+    }
     this.assignmentTransmis.rendu = true;
 
     // on appelle le service pour faire l'update
@@ -77,7 +85,7 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   onAssignmentHand(){
-    this.notingMode = true;
+    this.notingMode = !this.notingMode;
   }
 
   isLogged() {

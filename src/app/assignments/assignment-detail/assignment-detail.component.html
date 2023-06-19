@@ -52,18 +52,19 @@
         </mat-list-item>
         
       </mat-list>
-        <div class="example-container">
+        <div class="example-container" *ngIf="notingMode">
           <mat-form-field hintLabel="Entre 0 et 20" class="example-full-width">
             <mat-label>Entrer une note</mat-label>
-            <input matInput #input placeholder="10" type="number" min="0" max="20">
+            <input matInput #input placeholder="10" type="number" min="0" max="20" [(ngModel)]="note">
+            <mat-error *ngIf="inputError.note">{{inputError.note}}</mat-error>
           </mat-form-field>
         
           <mat-form-field class="example-full-width">
             <mat-label>Remarques</mat-label>
-            <textarea matInput></textarea>
+            <textarea matInput [(ngModel)]="remarque"></textarea>
           </mat-form-field>
 
-          <button mat-stroked-button color="primary">
+          <button mat-stroked-button color="primary" (click)="onAssignmentRendu()">
             Rendre le devoir
           </button>
         </div>

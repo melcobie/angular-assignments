@@ -9,3 +9,9 @@
 .menu-icon{
   font-size: 25px;
 }
+
+.nav{
+  text-decoration: none;
+  color:aliceblue;
+  font-size: smaller;
+}

@@ -3,6 +3,8 @@ import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { AddAssignmentModalComponent } from './add-assignment-modal/add-assignment-modal.component';
 
 @Component({
   selector: 'app-assignments',
@@ -25,12 +27,20 @@ export class AssignmentsComponent implements OnInit {
   prevPage: number = 0;
   hasNextPage: boolean = false;
   nextPage: number = 0;
+
+  // propriétés pour l'ajout
+  newAssignment: Assignment = new Assignment();
+  data: any = {
+    nomDuDevoir : "",
+    DateDeRendu : "",
+  }
 ;
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
   constructor(private assignmentsService:AssignmentsService,
-              private ngZone: NgZone) {    
+              private ngZone: NgZone,
+              private dialog: MatDialog) {    
   }
   
   ngOnInit(): void {
@@ -147,5 +157,21 @@ export class AssignmentsComponent implements OnInit {
     this.page = event.pageIndex;
     this.limit = event.pageSize;
     this.getAssignments();
+  }
+
+  addAssignment(){
+    const dialogRef = this.dialog.open(AddAssignmentModalComponent, {
+      data : this.data,
+      height: '80%',
+      width: '80%',
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.newAssignment.id = Math.abs(Math.random() * 1000000000000000);
+      this.newAssignment.nom = result.nomDuDevoir;
+      this.newAssignment.dateDeRendu = result.dateDeRendu
+      this.assignmentsService.addAssignment(this.newAssignment)
+        .subscribe(message => console.log(message));
+    })
   }
 }

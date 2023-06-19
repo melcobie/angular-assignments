@@ -17,6 +17,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatStepperModule} from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
@@ -29,7 +32,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
-import { LoginComponent } from './login/login.component';  
+import { LoginComponent } from './login/login.component';
+import { AddAssignmentModalComponent } from './assignments/add-assignment-modal/add-assignment-modal.component';  
 
 const routes: Routes = [
   {
@@ -66,18 +70,22 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssignmentComponent,
-    LoginComponent
+    LoginComponent,
+    AddAssignmentModalComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule, RouterModule.forRoot(routes),
     HttpClientModule,
+    ReactiveFormsModule,
     MatNativeDateModule, ScrollingModule,
     MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
-    MatTableModule, MatPaginatorModule
+    MatTableModule, MatPaginatorModule,
+    MatDialogModule,
+    MatStepperModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,18 +1,81 @@
-<form ngForm #assignmentForm (submit)="onSubmit($event); assignmentForm.reset()" class="form">
+<h1 mat-dialog-title>Création d'un assignment</h1>
 
-    <mat-form-field>
-        <input matInput [(ngModel)]="nomDevoir" name="nom" placeholder="Nom du devoir" required>
-    </mat-form-field>
+<!--<form ngForm #assignmentForm class="form">
 
-    <mat-form-field appearance="fill">
-        <mat-label>Date de rendu</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date" required>
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+     <div mar-dialog-content>
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.nomDuDevoir" name="nom" placeholder="Nom du devoir" required>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+            <mat-label>Date de rendu</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="data.dateDeRendu" name="date" required>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
 
-    <button mat-stroked-button color="primary">
-        Ajouter un devoir
-    </button>
-</form>
+    <div mat-dialog-actions align="end">
+        <button mat-button (click)="onNoClick()">Annuler</button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ajouter un devoir</button>
+    </div>
+</form> -->
+  <mat-stepper [linear]="true" #stepper class="content">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" class="example-form">
+        <ng-template matStepLabel>Choisissez la matière</ng-template>
+            <mat-radio-group
+                apprearance = "fill"
+                aria-labelledby="example-radio-group-label"
+                class="example-radio-group"
+                [(ngModel)]="choosenMatiere"
+                formControlName="firstCtrl" required
+            >
+                <mat-radio-button class="example-radio-button" *ngFor="let matiere of matieres" [value]="matiere">
+                    <mat-card class="matiere-card">
+                        <mat-card-content  class="matiere-card-content">
+                            <img [src]="fileUrl(matiere.photo)" mat-card-image width="50px" height="50px"
+                            onerror="this.onerror=null;this.src='../../../../assets/images/icons8-nourriture-morte-100.png';"
+                            />
+                            <span>{{matiere.nom}}</span>
+                        </mat-card-content> 
+                    </mat-card>
+                </mat-radio-button>
+            </mat-radio-group>
+        <div mat-dialog-actions align="end" class="action-buttons">
+          <button mat-button matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup" class="example-form">
+        <ng-template matStepLabel>Informations sur l'assignment </ng-template>
+            <mat-form-field appearance="fill"  class="example-full-width">
+                <mat-label>Nom du devoir</mat-label>
+                <input matInput formControlName="secondCtrl" name="nom" [(ngModel)]="nom" placeholder="Devoir XXX de XXX"
+                    required>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Date de rendu</mat-label>
+                <input matInput formControlName="secondCtrl" [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date" required>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        <div align="end" class="action-buttons">
+          <button mat-button matStepperPrevious>Précédent</button>
+          <button mat-button matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Finalisation</ng-template>
+      <p>Vous avez fini.</p>
+      <div align="end" class="action-buttons">
+        <button mat-button matStepperPrevious>Précédent</button>
+        <button mat-button (click)="stepper.reset()">Réinitialiser</button>
+        <button mat-button [mat-dialog-close]="{choosenMatiere, nom, dateDeRendu}" cdkFocusInitial>Ajouter un devoir</button>
+      </div>
+    </mat-step>
+  </mat-stepper>

@@ -1,4 +1,7 @@
+const server_uri = 'http://localhost:8010';
+
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8010/api'
+  apiUrl: server_uri + '/api',
+  assetsUri: server_uri, 
 };

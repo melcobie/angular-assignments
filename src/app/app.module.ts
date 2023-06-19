@@ -27,10 +27,10 @@ import { RenduDirective } from './shared/rendu.directive';
 import { FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
-import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatRadioModule} from '@angular/material/radio';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { AuthGuard } from './shared/auth.guard';
 import { LoginComponent } from './login/login.component';
@@ -38,6 +38,7 @@ import { JwtInterceptor } from './shared/jwt.interceptor';
 import { ErrorInterceptor } from './shared/error.interceptor';
 import { Role } from './shared/user.model';
 import { AssignmentCardComponent } from './assignments/components/assignment-card/assignment-card.component';
+import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 
 const routes: Routes = [
   {
@@ -48,11 +49,6 @@ const routes: Routes = [
   {
     path: 'home',
     component: AssignmentsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'add',
-    component: AddAssignmentComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -77,9 +73,10 @@ const routes: Routes = [
     AssignmentsComponent,
     RenduDirective,
     AssignmentDetailComponent,
-    AddAssignmentComponent,
     EditAssignmentComponent,
-    LoginComponent
+    LoginComponent,
+    AssignmentCardComponent,
+    AddAssignmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,13 +88,13 @@ const routes: Routes = [
     MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
-    MatTableModule, MatPaginatorModule, MatToolbarModule, MatMenuModule,MatChipsModule,MatTabsModule
+    MatTableModule, MatPaginatorModule, MatToolbarModule, MatMenuModule,MatChipsModule,MatTabsModule,
+    MatDialogModule,
+    MatStepperModule, MatRadioModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    MatDialogModule,
-    MatStepperModule,
   ],
   bootstrap: [AppComponent]
 })

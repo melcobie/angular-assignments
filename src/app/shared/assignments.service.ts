@@ -71,7 +71,7 @@ assignments:Assignment[] = []
  };
 
   addAssignment(assignment:Assignment):Observable<any> {
-    this.loggingService.log(assignment.nom, 'ajouté');
+    // this.loggingService.log(assignment.nom, 'ajouté');
 
     // plus tard on utilisera un web service pour l'ajout dans une vraie BD
     return this.http.post<Assignment>(this.uri_api, assignment);

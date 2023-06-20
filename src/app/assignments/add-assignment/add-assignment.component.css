@@ -4,11 +4,11 @@
 
 .example-radio-group {
     display: flex;
-    flex-direction: column;
-    margin: 15px 0;
-    align-items: flex-start;
+    flex-direction: row;
+    margin: 15px 25px;
+    justify-content: space-between;
   }
-  
+
   .example-radio-button {
     margin: 5px;
   }
@@ -19,7 +19,7 @@
     height: 100%;
     margin: 10px;
   }
-  
+
   .example-full-width {
     width: 100%;
   }
@@ -29,7 +29,9 @@
     position: absolute;
     bottom: 0;
   }
-
+  .stepper-button{
+    margin-right: 10px;
+  }
   .matiere-card {
     border-radius: 4px;
     max-width: 600px;
@@ -66,5 +68,4 @@
       }
     }
 }
-  
-  
+

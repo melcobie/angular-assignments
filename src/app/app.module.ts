@@ -40,7 +40,7 @@ import { Role } from './shared/user.model';
 import { AssignmentCardComponent } from './assignments/components/assignment-card/assignment-card.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { MatSelectModule } from '@angular/material/select';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 const routes: Routes = [
   {
     path: '',
@@ -91,7 +91,7 @@ const routes: Routes = [
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
     MatTableModule, MatPaginatorModule, MatToolbarModule, MatMenuModule,MatChipsModule,MatTabsModule,
     MatDialogModule,
-    MatStepperModule, MatRadioModule, MatSelectModule
+    MatStepperModule, MatRadioModule, MatSelectModule,FlexLayoutModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

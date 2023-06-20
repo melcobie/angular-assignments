@@ -1,22 +1,22 @@
 
 
 <main class="container">
-   <h1>Liste des devoirs</h1>
+   <div class="title-container"><mat-icon class="title-icon">collections_bookmark</mat-icon> <h1 class="title">Liste des devoirs</h1></div>
     <button mat-flat-button color="accent" (click)="addAssignment()" class="ajouterBtn"> Ajouter Assignment
     </button>
    <mat-tab-group>
     <mat-tab label="Devoir rendu">
       <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scrollerRendu>
-        <mat-list *cdkVirtualFor="let a of assignmentsRendu">
-            <app-assignment-card [assignment]="a" />
-        </mat-list>
+        <div fxLayout="row wrap" fxLayoutGap="16px">
+          <app-assignment-card *cdkVirtualFor="let a of assignmentsRendu" [assignment]="a" />
+        </div>
       </cdk-virtual-scroll-viewport>
     </mat-tab>
     <mat-tab label="Devoir non rendu">
       <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scrollerNonRendu>
-        <mat-list *cdkVirtualFor="let a of assignmentsNonRendu">
-            <app-assignment-card [assignment]="a" />
-        </mat-list>
+        <div fxLayout="row wrap" fxLayoutGap="16px">
+          <app-assignment-card  *cdkVirtualFor="let a of assignmentsNonRendu" [assignment]="a" />
+        </div>
       </cdk-virtual-scroll-viewport>
     </mat-tab>
   </mat-tab-group>

@@ -1,21 +1,22 @@
+
 <div class="container">
   <mat-card class="example-card" *ngIf="assignmentTransmis">
-    <img mat-card-image [src]="fileUrl(assignmentTransmis.matiere.photo)" alt="Photo de la matière" height="100px" width="100px">
-    <mat-card-content>
-      <h3>{{assignmentTransmis.nom}}</h3>
+
+    <mat-card-content class="card-body">
+      <div class="row-left">
+        <img mat-card-image [src]="fileUrl(assignmentTransmis.matiere.photo)" alt="Photo de la matière" height="100px" width="100px">
+      </div>
+      <div class="row-right">
+        <h2 class="title">{{assignmentTransmis.nom}}</h2>
+        <span class="card-date" matListItemTitle>Date de rendu : {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yy'}}</span>
+      <h3><mat-icon>folder</mat-icon> Matière</h3>
       <mat-list>
         <mat-list-item>
-          <span matListItemTitle>Date de rendu : {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yy'}}</span>
-        </mat-list-item>
-      </mat-list>
-      <h3>Matière</h3>
-      <mat-list>
-        <mat-list-item>
-          <span matListItemTitle>{{assignmentTransmis.matiere.nom}}</span>
+          <span matListItemTitle>Nom de matière: {{assignmentTransmis.matiere.nom}}</span>
           <span matListItemLine>Professeur : {{assignmentTransmis.matiere.prof}}</span>
         </mat-list-item>
       </mat-list>
-      <h3>Élève</h3>
+      <h3><mat-icon>account_box</mat-icon>Élève</h3>
       <mat-list>
         <mat-list-item>
           <span matListItemTitle>{{assignmentTransmis.eleve.name}}</span>
@@ -29,7 +30,6 @@
           <span matListItemTitle>{{assignmentTransmis.note}}/20</span>
           <span matListItemLine>{{assignmentTransmis.remarques}}</span>
         </mat-list-item>
-        
       </mat-list>
         <div class="example-container" *ngIf="notingMode">
           <mat-form-field hintLabel="Entre 0 et 20" class="example-full-width">
@@ -37,16 +37,16 @@
             <input matInput #input placeholder="10" type="number" min="0" max="20" [(ngModel)]="note">
             <mat-error *ngIf="inputError.note">{{inputError.note}}</mat-error>
           </mat-form-field>
-        
+
           <mat-form-field class="example-full-width">
             <mat-label>Remarques</mat-label>
             <textarea matInput [(ngModel)]="remarque"></textarea>
           </mat-form-field>
-
           <button mat-stroked-button color="primary" (click)="onAssignmentRendu()">
             Rendre le devoir
           </button>
         </div>
+      </div>
     </mat-card-content>
     <mat-card-actions *ngIf="isAdmin()" class="actions">
       <div class="edit">
@@ -55,7 +55,7 @@
           (click)="onAssignmentHand()"
         >RENDRE LE DEVOIR</button>
         <button mat-stroked-button color="primary" (click)="onEditAssignment()">MODIFIER</button>
-      </div>  
+            </div>
       <button mat-stroked-button color="warn" (click)="onDeleteAssignment()">SUPPRIMER</button>
     </mat-card-actions>
   </mat-card>

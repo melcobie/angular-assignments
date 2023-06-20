@@ -1,5 +1,6 @@
 .example-card{
   width: 350px;
+  margin-bottom:20px;
 }
 .chip-container{
   display: block;

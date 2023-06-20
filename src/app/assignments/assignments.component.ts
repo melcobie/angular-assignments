@@ -204,7 +204,7 @@ export class AssignmentsComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Assignment[]>) {
-    let draggedItem = event.previousContainer.data[event.previousIndex]
+    let draggedItem = event.item.data;
     if (this.tab.selectedIndex === 0) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -224,7 +224,7 @@ export class AssignmentsComponent implements OnInit {
 
         this.assignmentsService.updateAssignment(draggedItem)
           .subscribe(data => {
-            window.location.reload();
+            this.router.navigate(['assignments', draggedItem._id]);
           })
       })
     }

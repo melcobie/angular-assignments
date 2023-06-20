@@ -1,8 +1,8 @@
 <div class="container" *ngIf="isLogged(); else elseBlock">
   <mat-toolbar color="primary">
     <mat-toolbar-row class="toolbar-row">
-      <h1>Gestion de devoir à rendre</h1>
-      <a routerLink="/" class="nav">Liste des devoirs</a>
+
+      <a routerLink="/" class="nav"><h1>Gestion de devoir à rendre</h1></a>
       <div>
         <button class="menu-icon" mat-button [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon></button>
         <mat-menu #menu="matMenu">

@@ -3,17 +3,21 @@
 ## Membres
 - RAKOTOASIMBOLA Mihary Lalaina - 24
 - RAKOTONAIVO RADO Tiako Sombiniaina - 29
-
-
+## Vidéo de présentation
+[Lien de la vidéo](https://youtu.be/UnUtIInFf6Y)
 ## Scripts à lancer pour faire marcher
 ### api
+Cloner le repository [https://github.com/melcobie/backend-assignment-lalaina-sombiniaina](https://github.com/melcobie/backend-assignment-lalaina-sombiniaina)
+modifier dans server.js de l'api l'uri de mongoDB
 ```http
-npm run build
-npm run start
+npm i
+npm start
 ```
 
 ### frontend
+Modifier dans **src/environments/environment.ts** la variable server_uri en http://localhost:<port>
 ```http
+
 npm run build
 npm run start
 ```

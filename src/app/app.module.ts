@@ -41,6 +41,7 @@ import { AssignmentCardComponent } from './assignments/components/assignment-car
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { MatSelectModule } from '@angular/material/select';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { AddNoteDialogComponent } from './assignments/add-note-dialog/add-note-dialog.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,7 @@ const routes: Routes = [
     LoginComponent,
     AssignmentCardComponent,
     AddAssignmentComponent,
+    AddNoteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +94,8 @@ const routes: Routes = [
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
     MatTableModule, MatPaginatorModule, MatToolbarModule, MatMenuModule,MatChipsModule,MatTabsModule,
     MatDialogModule,
-    MatStepperModule, MatRadioModule, MatSelectModule
+    MatStepperModule, MatRadioModule, MatSelectModule,
+    DragDropModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -4,20 +4,32 @@
    <h1>Liste des devoirs</h1>
     <button mat-flat-button color="accent" (click)="addAssignment()" class="ajouterBtn"> Ajouter Assignment
     </button>
-   <mat-tab-group>
+    <button mat-stroked-button color="basic" (mouseenter)="changeTab()" class="changeTab">Changer de tab</button>
+   <mat-tab-group cdkDropListGroup #tab>
     <mat-tab label="Devoir non rendu">
       <cdk-virtual-scroll-viewport 
         itemSize="50" 
         class="example-viewport" 
         #scrollerNonRendu
+        cdkDropList
+        [cdkDropListData]="assignmentsNonRendu"
+        (cdkDropListDropped)="drop($event)"
+        id="tab-1"
         >
-        <mat-list *cdkVirtualFor="let a of assignmentsNonRendu">
+        <mat-list *cdkVirtualFor="let a of assignmentsNonRendu" cdkDrag>
             <app-assignment-card [assignment]="a" />
         </mat-list>
       </cdk-virtual-scroll-viewport>
     </mat-tab>
-    <mat-tab label="Devoir rendu">
-      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scrollerRendu>
+    <mat-tab label="Devoir rendu" (dragover)="changeTab()" >
+      <cdk-virtual-scroll-viewport 
+        itemSize="50" 
+        class="example-viewport" 
+        #scrollerRendu
+        cdkDropList
+        [cdkDropListData]="assignmentsRendu"
+        (cdkDropListDropped)="drop($event)"
+        id="tab-2">
         <mat-list *cdkVirtualFor="let a of assignmentsRendu">
             <app-assignment-card [assignment]="a" />
         </mat-list>

@@ -6,6 +6,9 @@
 .ajouterBtn {
     align-self: flex-end;
 }
+.changeTab{
+  align-self: flex-end;
+}
 
 .example-viewport {
     height: 600px;

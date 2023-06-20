@@ -1,38 +1,65 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Role, User } from './user.model';
+import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+
+
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  loggedIn = false;
+  private user: User | undefined;
+    constructor(private http: HttpClient) {
+      let registered = localStorage.getItem("user");
+      if(registered){
+        this.user = JSON.parse(registered);
+      }
+    }
 
-  constructor() { }
 
-  // théoriquement, on devrait passer en paramètre le login
-  // et le password, cette méthode devrait faire une requête
-  // vers un Web Service pour vérifier que c'est ok, renvoyer
-  // un token d'authentification JWT etc.
-  // elle devrait renvoyer un Observable etc.
-  logIn() {
-    console.log("ON SE LOGGE")
-    this.loggedIn = true;
-  }
+    login(email: string, password: string) {
+        return this.http.post<any>(`${environment.apiUrl}/authenticate`, { email:email, password:password })
+            .pipe(map(res => {
+                let user =res;
+                localStorage.setItem("user",JSON.stringify(user));
+                // login successful if there's a jwt token in the response
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    this.user = user;
+                }
+                return res;
+            }));
+    }
 
-  logOut() {
-    console.log("ON SE DELOGGE")
-
-    this.loggedIn = false;
-  }
-
-  // si on l'utilisait on ferai isAdmin().then(...)
-  isAdmin() {
-    // Pour le moment, version simplifiée...
-    // on suppose qu'on est admin si on est loggué
-    const isUserAdminPromise = new Promise((resolve, reject) => {
-        resolve(this.loggedIn);
-    });
-
-    // on renvoie la promesse qui dit si on est admin ou pas
-    return isUserAdminPromise;
-  }
+    logout(){
+      localStorage.clear();
+      this.user = undefined;
+    }
+    isAuthorized(roles: Role[] | undefined){
+      if(this.user) {
+        if(roles && roles.indexOf(this.user.userInfo.userType)=== -1){
+          return false;
+        }
+        return true;
+      }
+      return false;
+    }
+    getRole(): string | undefined{
+      if(this.user){
+        return this.user.userInfo.userType;
+      }
+      return undefined;
+    }
+    isAuthenticated():boolean{
+      if(this.user){
+        return true;
+      }
+      return false;
+    }
+    getToken():string{
+      if(this.user){
+        return this.user.token;
+      }
+      return '';
+    }
 }

@@ -1,44 +1,56 @@
-import { Component } from '@angular/core';
-import { Assignment } from '../assignment.model';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
-import { Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Matiere } from '../matiere.model';
+import { MatieresService } from 'src/app/shared/matiere.service';
+import { fileUrl } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-add-assignment',
   templateUrl: './add-assignment.component.html',
   styleUrls: ['./add-assignment.component.css']
 })
-export class AddAssignmentComponent {
+export class AddAssignmentComponent implements OnInit{
+  fileUrl = fileUrl;
 
-  // champs du formulaire
-  nomDevoir = "";
-  dateDeRendu!: Date;
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  isLinear = false;
+
+  matieres: Matiere[] = [];
+
+  //formulaire
+  choosenMatiere: Matiere|undefined;
+  nom: string|undefined;
+  dateDeRendu: Date|undefined;
 
 
-  constructor(private assignmentsService: AssignmentsService,
-              private router:Router) { }
+  constructor(private dialogRef : MatDialogRef<AddAssignmentComponent>,
+    public _formBuilder : FormBuilder,
+    private matiereService: MatieresService){
 
-  onSubmit(event: any) {
-    // On vérifie que les champs ne sont pas vides
-    if (this.nomDevoir === "") return;
-    if (this.dateDeRendu === undefined) return;
+  }
 
-    let nouvelAssignment = new Assignment();
-    // génération d'id, plus tard ce sera fait dans la BD
-    nouvelAssignment.id = Math.abs(Math.random() * 1000000000000000);
-    nouvelAssignment.nom = this.nomDevoir;
-    nouvelAssignment.dateDeRendu = this.dateDeRendu;
-    nouvelAssignment.rendu = false;
+  ngOnInit(): void {
+    this.getMatieres();
+  }
 
-    // on demande au service d'ajouter l'assignment
-    this.assignmentsService.addAssignment(nouvelAssignment)
-      .subscribe(message => {
-        console.log(message);
+  getMatieres(){
+    this.matiereService.getMatieres()
+      .subscribe(matiere => {
+        this.matieres = matiere;
+      })
+  }
 
-        // On va naviguer vers la page d'accueil pour afficher la liste
-        // des assignments
-        this.router.navigate(["/home"]);
+  onNoClick(){
+    this.dialogRef.close();
+  }
 
-      });
+  clickMatiere(){
+
   }
 }

@@ -3,6 +3,10 @@ import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
+import { fileUrl } from 'src/app/shared/utils';
+import { Role } from 'src/app/shared/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteComponent } from '../dialogs/confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -11,17 +15,25 @@ import { AuthService } from 'src/app/shared/auth.service';
 })
 export class AssignmentDetailComponent implements OnInit {
   assignmentTransmis?: Assignment;
+  fileUrl = fileUrl;
+
+  // mode notation
+  notingMode = false;
+  note :number|undefined;
+  remarque = "";
+  inputError: any = {};
 
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService:AuthService) { }
+    private authService:AuthService,
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     // appelée avant le rendu du composant
     // on va chercher l'id dans l'url active
     // en mettant + on force la conversion en number
-    const id = +this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
     console.log("Dans le ngOnInit de detail, id = " + id);
 
     // on va chercher l'assignment à afficher
@@ -29,6 +41,13 @@ export class AssignmentDetailComponent implements OnInit {
       .subscribe(assignment => {
         this.assignmentTransmis = assignment;
       });
+  }
+
+  onConfirmDelete(){
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) this.onDeleteAssignment();
+    })
   }
 
   onDeleteAssignment() {
@@ -52,11 +71,23 @@ export class AssignmentDetailComponent implements OnInit {
   onAssignmentRendu() {
     if (!this.assignmentTransmis) return;
 
+    if(!this.note) {
+      this.inputError.note = "Insérez une note.";
+      return;
+    }else if(this.note <0 || this.note > 20){
+      this.inputError.note = "La note doit être entre 0 et 20";
+      return;
+    }
+
     this.assignmentTransmis.rendu = true;
+    this.assignmentTransmis.note = this.note;
+    this.assignmentTransmis.remarques = this.remarque;
 
     // on appelle le service pour faire l'update
     this.assignmentsService.updateAssignment(this.assignmentTransmis)
       .subscribe(message => {
+        this.notingMode=false;
+        this.inputError = {};
         console.log(message);
       });
   }
@@ -67,18 +98,19 @@ export class AssignmentDetailComponent implements OnInit {
     // path = "/assignment/" + this.assignmentTransmis?.id + "/edit";
     // this.router.navigate([path]);
     // c'est pour vous montrer la syntaxe avec [...]
-    this.router.navigate(["/assignments", this.assignmentTransmis?.id, "edit"],
-    {
-      queryParams: {
-        nom: this.assignmentTransmis?.nom,
-        matiere: "Angular"
-      },
-      fragment: "edition"
-    });
+    this.router.navigate(["/assignments", this.assignmentTransmis?._id, "edit"]);
+  }
+
+  onAssignmentHand(){
+    this.notingMode = !this.notingMode;
   }
 
   isLogged() {
     // renvoie si on est loggé ou pas
-    return this.authService.loggedIn;
+    return this.authService.isAuthenticated();
+  }
+
+  isAdmin(){
+   return this.authService.isAuthorized([Role.Admin])
   }
 }

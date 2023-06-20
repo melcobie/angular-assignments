@@ -1,4 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 120; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {margin:0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.info-msg,
+.success-msg,
+.warning-msg,
+.error-msg {
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+.info-msg {
+  color: #059;
+  background-color: #BEF;
+}
+.success-msg {
+  color: #270;
+  background-color: #DFF2BF;
+}
+.warning-msg {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.error-msg {
+  color: #D8000C;
+  background-color: #FFBABA;
+}
+
+h3{
+  font-family: "Trebuchet MS", sans-serif;
+}

@@ -1,0 +1,48 @@
+.example-card{
+  width: 350px;
+}
+.chip-container{
+  display: block;
+}
+.card-date{
+  margin-top:2px;
+  color:#7a7a7a;
+  display: block;
+}
+
+.card-header{
+  border-left-width: 7px;
+  border-left-style: solid;
+}
+.card-content-title{
+  font-weight: 600;
+  font-size: 16px;
+  margin: 2px;
+}
+.card-content-student{
+  margin-top: 1px;
+}
+
+.card-footer{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom:10px;
+  display: flex;
+  align-content: space-between;
+  color: #6a6a6b;
+  justify-content: space-between;
+}
+.teacher-container{
+  display: flex;
+  align-items: center;
+}
+.label-teacher{
+  margin-left: 3px;
+}
+.img-teacher{
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  object-fit: contain;
+}

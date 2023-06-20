@@ -1,1 +1,41 @@
-<p>ICI FORMULAIRE DE CONNEXION</p>
+<div class="login-container">
+  <mat-card>
+    <mat-card-content>
+      <div class="header">
+        <h2>Se connecter</h2>
+      </div>
+
+      <form ngForm #loginForm submit="$event.preventDefault()" class="form">
+        <div *ngIf="error" class="error-msg">
+          <mat-icon>error</mat-icon>
+          {{error}}
+        </div>
+        <div class="email-input">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="user.email" name="email" placeholder="Email" required>
+            <mat-error *ngIf="this.inputValidation.email">{{this.inputValidation.email}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="pw-input">
+          <mat-form-field class="full-width">
+            <mat-label>Mot de passe</mat-label>
+            <input [(ngModel)]="user.password" name="password" matInput [type]="hidePassword ? 'password' : 'text'" required>
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'hidePassword password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="this.inputValidation.password">{{this.inputValidation.password}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100%">
+          <button (click)="login()" mat-raised-button class="full-width login-button" color="primary">
+            Se connecter
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+

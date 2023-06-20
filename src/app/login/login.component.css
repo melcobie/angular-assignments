@@ -34,3 +34,15 @@ mat-card {
   height: 50px;
   font-size: 20px;
 }
+
+.form-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.error-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

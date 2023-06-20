@@ -6,9 +6,12 @@
       </div>
 
       <form ngForm #loginForm submit="$event.preventDefault()" class="form">
-        <div *ngIf="error" class="error-msg">
-          <mat-icon>error</mat-icon>
+      <div class="form-container">
+        <div *ngIf="error" class="error-container">
+          <div class="error-msg full-width">
+            <mat-icon>error</mat-icon>
           {{error}}
+          </div>
         </div>
         <div class="email-input">
           <mat-form-field class="full-width">
@@ -31,6 +34,8 @@
             Se connecter
           </button>
         </div>
+      </div>
+
       </form>
     </mat-card-content>
   </mat-card>

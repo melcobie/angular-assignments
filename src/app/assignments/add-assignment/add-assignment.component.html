@@ -6,7 +6,7 @@
         <mat-form-field>
             <input matInput [(ngModel)]="data.nomDuDevoir" name="nom" placeholder="Nom du devoir" required>
         </mat-form-field>
-    
+
         <mat-form-field appearance="fill">
             <mat-label>Date de rendu</mat-label>
             <input matInput [matDatepicker]="picker" [(ngModel)]="data.dateDeRendu" name="date" required>
@@ -39,12 +39,12 @@
                             onerror="this.onerror=null;this.src='../../../../assets/images/icons8-nourriture-morte-100.png';"
                             />
                             <span>{{matiere.nom}}</span>
-                        </mat-card-content> 
+                        </mat-card-content>
                     </mat-card>
                 </mat-radio-button>
             </mat-radio-group>
         <div mat-dialog-actions align="end" class="action-buttons">
-          <button mat-button matStepperNext>Suivant</button>
+          <button mat-flat-button color="primary" matStepperNext>Suivant</button>
         </div>
       </form>
     </mat-step>
@@ -64,8 +64,8 @@
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         <div align="end" class="action-buttons">
-          <button mat-button matStepperPrevious>Précédent</button>
-          <button mat-button matStepperNext>Suivant</button>
+          <button mat-flat-button color="accent" class="stepper-button" matStepperPrevious>Précédent</button>
+          <button mat-flat-button color="primary" class="stepper-button" matStepperNext>Suivant</button>
         </div>
       </form>
     </mat-step>
@@ -73,9 +73,9 @@
       <ng-template matStepLabel>Finalisation</ng-template>
       <p>Vous avez fini.</p>
       <div align="end" class="action-buttons">
-        <button mat-button matStepperPrevious>Précédent</button>
-        <button mat-button (click)="stepper.reset()">Réinitialiser</button>
-        <button mat-button [mat-dialog-close]="{choosenMatiere, nom, dateDeRendu}" cdkFocusInitial>Ajouter un devoir</button>
+        <button mat-flat-button class="stepper-button" color="accent" matStepperPrevious>Précédent</button>
+        <button mat-flat-button class="stepper-button" color="accent" (click)="stepper.reset()">Réinitialiser</button>
+        <button mat-flat-button class="stepper-button" color="primary" [mat-dialog-close]="{choosenMatiere, nom, dateDeRendu}" cdkFocusInitial>Ajouter un devoir</button>
       </div>
     </mat-step>
   </mat-stepper>

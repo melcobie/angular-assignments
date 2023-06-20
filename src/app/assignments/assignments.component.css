@@ -2,9 +2,27 @@
     display:flex;
     flex-direction:column;
 }
-
+.title{
+  margin: 0;
+  display: inline;
+}
+.title-icon{
+  font-size: 50px;
+  text-align: center;
+  height: 70px;
+  width: 50px;
+}
+.title-container{
+  margin-top: 25px;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .ajouterBtn {
     align-self: flex-end;
+    margin-right: 25px;
+    margin-bottom: 50px;
 }
 .changeTab{
   align-self: flex-end;

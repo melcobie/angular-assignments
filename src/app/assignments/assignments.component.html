@@ -1,7 +1,7 @@
 
 
 <main class="container">
-   <h1>Liste des devoirs</h1>
+   <div class="title-container"><mat-icon class="title-icon">collections_bookmark</mat-icon> <h1 class="title">Liste des devoirs</h1></div>
     <button mat-flat-button color="accent" (click)="addAssignment()" class="ajouterBtn"> Ajouter Assignment
     </button>
     <button mat-stroked-button color="basic" (mouseenter)="changeTab()" class="changeTab">Passer ici pour changer de tab</button>
@@ -16,9 +16,9 @@
         (cdkDropListDropped)="drop($event)"
         id="tab-1"
         >
-        <mat-list *cdkVirtualFor="let a of assignmentsNonRendu" [cdkDragData]="a" cdkDrag>
+        <div fxLayout="row wrap" fxLayoutGap="16px" *cdkVirtualFor="let a of assignmentsNonRendu" [cdkDragData]="a" cdkDrag>
             <app-assignment-card [assignment]="a" />
-        </mat-list>
+        </div>
       </cdk-virtual-scroll-viewport>
     </mat-tab>
     <mat-tab label="Devoir rendu" (dragover)="changeTab()" >
@@ -30,9 +30,10 @@
         [cdkDropListData]="assignmentsRendu"
         (cdkDropListDropped)="drop($event)"
         id="tab-2">
-        <mat-list *cdkVirtualFor="let a of assignmentsRendu">
+        <div fxLayout="row wrap" fxLayoutGap="16px" *cdkVirtualFor="let a of assignmentsRendu">
             <app-assignment-card [assignment]="a" />
-        </mat-list>
+        </div>
+
       </cdk-virtual-scroll-viewport>
     </mat-tab>    
   </mat-tab-group>

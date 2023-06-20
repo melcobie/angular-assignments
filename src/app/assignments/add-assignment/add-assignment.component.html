@@ -1,26 +1,5 @@
 <h1 mat-dialog-title>Création d'un assignment</h1>
 
-<!--<form ngForm #assignmentForm class="form">
-
-     <div mar-dialog-content>
-        <mat-form-field>
-            <input matInput [(ngModel)]="data.nomDuDevoir" name="nom" placeholder="Nom du devoir" required>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Date de rendu</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="data.dateDeRendu" name="date" required>
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-    </div>
-
-    <div mat-dialog-actions align="end">
-        <button mat-button (click)="onNoClick()">Annuler</button>
-        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ajouter un devoir</button>
-    </div>
-</form> -->
   <mat-stepper [linear]="true" #stepper class="content">
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup" class="example-form">

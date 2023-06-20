@@ -16,7 +16,7 @@
         (cdkDropListDropped)="drop($event)"
         id="tab-1"
         >
-        <div fxLayout="row wrap" fxLayoutGap="16px">
+        <div class="card-container" fxLayout="row wrap" fxLayoutGap="16px">
             <app-assignment-card *cdkVirtualFor="let a of assignmentsNonRendu" [cdkDragData]="a" cdkDrag [assignment]="a" />
         </div>
       </cdk-virtual-scroll-viewport>
@@ -30,7 +30,7 @@
         [cdkDropListData]="assignmentsRendu"
         (cdkDropListDropped)="drop($event)"
         id="tab-2">
-        <div fxLayout="row wrap" fxLayoutGap="16px">
+        <div class="card-container" fxLayout="row wrap" fxLayoutGap="16px">
             <app-assignment-card *cdkVirtualFor="let a of assignmentsRendu" [assignment]="a" />
         </div>
 

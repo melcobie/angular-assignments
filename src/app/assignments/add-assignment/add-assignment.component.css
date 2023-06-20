@@ -5,12 +5,14 @@
 .example-radio-group {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
     margin: 15px 25px;
     justify-content: space-between;
   }
 
   .example-radio-button {
-    margin: 5px;
+    margin: 25px 0;
   }
 
   .example-form {

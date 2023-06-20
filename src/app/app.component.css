@@ -7,7 +7,17 @@
   justify-content: space-between;
 }
 .menu-icon{
-  font-size: 25px;
+  height: 60px;
+  width: 120px;
+
+}
+.menu-icon>.mat-icon{
+  font-size: 28px;
+  height: 40px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .nav{

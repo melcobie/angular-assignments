@@ -40,6 +40,7 @@ import { Role } from './shared/user.model';
 import { AssignmentCardComponent } from './assignments/components/assignment-card/assignment-card.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { MatSelectModule } from '@angular/material/select';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
   {

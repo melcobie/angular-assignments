@@ -2,10 +2,15 @@ import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
+import { filter, map, pairwise, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 import { Router } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatTabGroup } from '@angular/material/tabs';
+import { AddNoteDialogComponent } from './dialogs/add-note-dialog/add-note-dialog.component';
+import { AuthService } from '../shared/auth.service';
+import { Role } from '../shared/user.model';
 
 @Component({
   selector: 'app-assignments',
@@ -40,12 +45,14 @@ export class AssignmentsComponent implements OnInit {
   nextPageNonRendu: number = 0;
 ;
 
-
+  // Drag and drop entre les tabs
+  @ViewChild("tab") tab!: MatTabGroup;
 
   @ViewChild('scrollerRendu') scrollerRendu!: CdkVirtualScrollViewport;
   @ViewChild('scrollerNonRendu') scrollerNonRendu!: CdkVirtualScrollViewport;
 
   constructor(private assignmentsService:AssignmentsService,
+              private authService: AuthService,
               private ngZone: NgZone,
               private dialog: MatDialog,
               private router: Router) {
@@ -196,6 +203,40 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
+  drop(event: CdkDragDrop<Assignment[]>) {
+    let draggedItem = event.item.data;
+    if (this.tab.selectedIndex === 0) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      if(!this.authService.isAuthorized([Role.Admin])) return
+      const dialogRef = this.dialog.open(AddNoteDialogComponent, {
+        data: draggedItem,
+      })
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(!result) return;
+        draggedItem = {
+          ...draggedItem,
+          rendu: true,
+          note: result.note,
+          remarques: result.remarque,
+        };
+
+        this.assignmentsService.updateAssignment(draggedItem)
+          .subscribe(data => {
+            this.router.navigate(['assignments', draggedItem._id]);
+          })
+      })
+    }
+  }
+
+  changeTab(){
+    const tabGroup = this.tab;
+    if (!tabGroup || !(tabGroup instanceof MatTabGroup)) return;
+    console.log(tabGroup.selectedIndex)
+    tabGroup.selectedIndex = tabGroup.selectedIndex === 0? 1 : 0;
+  }
+
   addAssignment(){
     const dialogRef = this.dialog.open(AddAssignmentComponent, {
       height: '80%',
@@ -203,6 +244,7 @@ export class AssignmentsComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
+      if(!result) return;
       const newAssignment = new Assignment();
       newAssignment.nom = result.nom;
       newAssignment.dateDeRendu = result.dateDeRendu;

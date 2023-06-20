@@ -4,21 +4,38 @@
    <div class="title-container"><mat-icon class="title-icon">collections_bookmark</mat-icon> <h1 class="title">Liste des devoirs</h1></div>
     <button mat-flat-button color="accent" (click)="addAssignment()" class="ajouterBtn"> Ajouter Assignment
     </button>
-   <mat-tab-group>
-    <mat-tab label="Devoir rendu">
-      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scrollerRendu>
-        <div fxLayout="row wrap" fxLayoutGap="16px">
-          <app-assignment-card *cdkVirtualFor="let a of assignmentsRendu" [assignment]="a" />
-        </div>
-      </cdk-virtual-scroll-viewport>
-    </mat-tab>
+    <button mat-stroked-button color="basic" (mouseenter)="changeTab()" class="changeTab">Passer ici pour changer de tab</button>
+   <mat-tab-group cdkDropListGroup #tab>
     <mat-tab label="Devoir non rendu">
-      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scrollerNonRendu>
-        <div fxLayout="row wrap" fxLayoutGap="16px">
-          <app-assignment-card  *cdkVirtualFor="let a of assignmentsNonRendu" [assignment]="a" />
+      <cdk-virtual-scroll-viewport 
+        itemSize="50" 
+        class="example-viewport" 
+        #scrollerNonRendu
+        cdkDropList
+        [cdkDropListData]="assignmentsNonRendu"
+        (cdkDropListDropped)="drop($event)"
+        id="tab-1"
+        >
+        <div fxLayout="row wrap" fxLayoutGap="16px" *cdkVirtualFor="let a of assignmentsNonRendu" [cdkDragData]="a" cdkDrag>
+            <app-assignment-card [assignment]="a" />
         </div>
       </cdk-virtual-scroll-viewport>
     </mat-tab>
+    <mat-tab label="Devoir rendu" (dragover)="changeTab()" >
+      <cdk-virtual-scroll-viewport 
+        itemSize="50" 
+        class="example-viewport" 
+        #scrollerRendu
+        cdkDropList
+        [cdkDropListData]="assignmentsRendu"
+        (cdkDropListDropped)="drop($event)"
+        id="tab-2">
+        <div fxLayout="row wrap" fxLayoutGap="16px" *cdkVirtualFor="let a of assignmentsRendu">
+            <app-assignment-card [assignment]="a" />
+        </div>
+
+      </cdk-virtual-scroll-viewport>
+    </mat-tab>    
   </mat-tab-group>
 
 

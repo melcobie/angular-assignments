@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { fileUrl } from 'src/app/shared/utils';
 import { Role } from 'src/app/shared/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteComponent } from '../dialogs/confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -24,7 +26,8 @@ export class AssignmentDetailComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService:AuthService) { }
+    private authService:AuthService,
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     // appelée avant le rendu du composant
@@ -38,6 +41,13 @@ export class AssignmentDetailComponent implements OnInit {
       .subscribe(assignment => {
         this.assignmentTransmis = assignment;
       });
+  }
+
+  onConfirmDelete(){
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) this.onDeleteAssignment();
+    })
   }
 
   onDeleteAssignment() {

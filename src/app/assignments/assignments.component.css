@@ -24,6 +24,9 @@
     margin-right: 25px;
     margin-bottom: 50px;
 }
+.changeTab{
+  align-self: flex-end;
+}
 
 .example-viewport {
     height: 600px;

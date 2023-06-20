@@ -41,6 +41,10 @@ import { AssignmentCardComponent } from './assignments/components/assignment-car
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { AddNoteDialogComponent } from './assignments/dialogs/add-note-dialog/add-note-dialog.component';
+import { ConfirmDeleteComponent } from './assignments/dialogs/confirm-delete/confirm-delete.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -78,6 +82,8 @@ const routes: Routes = [
     LoginComponent,
     AssignmentCardComponent,
     AddAssignmentComponent,
+    AddNoteDialogComponent,
+    ConfirmDeleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +97,9 @@ const routes: Routes = [
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
     MatTableModule, MatPaginatorModule, MatToolbarModule, MatMenuModule,MatChipsModule,MatTabsModule,
     MatDialogModule,
-    MatStepperModule, MatRadioModule, MatSelectModule,FlexLayoutModule
+    MatStepperModule, MatRadioModule, MatSelectModule,FlexLayoutModule, DragDropModule,
+    MatStepperModule, MatRadioModule, MatSelectModule,
+    DragDropModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -224,7 +224,7 @@ export class AssignmentsComponent implements OnInit {
 
         this.assignmentsService.updateAssignment(draggedItem)
           .subscribe(data => {
-            window.location.reload();
+            this.router.navigate(['assignments', draggedItem._id]);
           })
       })
     }

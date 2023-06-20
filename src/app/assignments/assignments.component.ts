@@ -2,13 +2,13 @@ import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
+import { filter, map, pairwise, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 import { Router } from '@angular/router';
-import { CdkDragDrop, CdkDragMove, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatTabGroup } from '@angular/material/tabs';
-import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.component';
+import { AddNoteDialogComponent } from './dialogs/add-note-dialog/add-note-dialog.component';
 import { AuthService } from '../shared/auth.service';
 import { Role } from '../shared/user.model';
 
@@ -224,9 +224,7 @@ export class AssignmentsComponent implements OnInit {
 
         this.assignmentsService.updateAssignment(draggedItem)
           .subscribe(data => {
-            const index = this.assignmentsNonRendu.indexOf(draggedItem);
-            if(index > 0)this.assignmentsNonRendu.splice(index, 1);
-            this.assignmentsRendu.splice(0, 0, draggedItem);
+            window.location.reload();
           })
       })
     }

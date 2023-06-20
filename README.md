@@ -18,10 +18,20 @@ npm run build
 npm run start
 ```
 
+## Login
+### Admin
+email: admin@uca.fr
+mdp: mbds
+
+### Eleve test
+email: alice@uca.fr, bob@uca.fr
+mdp: mbds
+
 ## Fonctionnalités
 - Login
 - Liste des devoirs rendus et non-rendus
     - onScroll pagination
+    - +1000 données
 - Création d'un devoir
     - Stepper form
 - Détails d'un devoir

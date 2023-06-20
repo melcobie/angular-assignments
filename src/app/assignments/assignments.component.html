@@ -16,7 +16,7 @@
         (cdkDropListDropped)="drop($event)"
         id="tab-1"
         >
-        <mat-list *cdkVirtualFor="let a of assignmentsNonRendu" cdkDrag>
+        <mat-list *cdkVirtualFor="let a of assignmentsNonRendu" [cdkDragData]="a" cdkDrag>
             <app-assignment-card [assignment]="a" />
         </mat-list>
       </cdk-virtual-scroll-viewport>

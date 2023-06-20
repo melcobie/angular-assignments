@@ -204,7 +204,7 @@ export class AssignmentsComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Assignment[]>) {
-    let draggedItem = event.previousContainer.data[event.previousIndex]
+    let draggedItem = event.item.data;
     if (this.tab.selectedIndex === 0) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
